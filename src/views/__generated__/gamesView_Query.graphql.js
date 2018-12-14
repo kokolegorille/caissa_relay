@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 97bf7a7c1b397e3db05c700085ff15b2
+ * @relayHash 4f76d281cfa37b2ef1561cfa2fb629cb
  */
 
 /* eslint-disable */
@@ -9,7 +9,6 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type gameDetail_viewer$ref = any;
 type gamesList_viewer$ref = any;
 export type SortOrder = "ASC" | "ASC_NULLS_FIRST" | "ASC_NULLS_LAST" | "DESC" | "DESC_NULLS_FIRST" | "DESC_NULLS_LAST" | "%future added value";
 export type GameFilter = {
@@ -23,32 +22,29 @@ export type GameFilter = {
   year?: ?number,
   zobristHash?: ?string,
 };
-export type app_QueryVariables = {|
+export type gamesView_QueryVariables = {|
   filter: GameFilter,
   order: SortOrder,
-  id: number,
 |};
-export type app_QueryResponse = {|
+export type gamesView_QueryResponse = {|
   +viewer: ?{|
-    +$fragmentRefs: gamesList_viewer$ref & gameDetail_viewer$ref
+    +$fragmentRefs: gamesList_viewer$ref
   |}
 |};
-export type app_Query = {|
-  variables: app_QueryVariables,
-  response: app_QueryResponse,
+export type gamesView_Query = {|
+  variables: gamesView_QueryVariables,
+  response: gamesView_QueryResponse,
 |};
 */
 
 
 /*
-query app_Query(
+query gamesView_Query(
   $filter: GameFilter!
   $order: SortOrder!
-  $id: Int!
 ) {
   viewer {
     ...gamesList_viewer_3Rf5Y0
-    ...gameDetail_viewer_1Bmzm5
   }
 }
 
@@ -67,37 +63,6 @@ fragment gamesList_viewer_3Rf5Y0 on Viewer {
       hasNextPage
       startCursor
       endCursor
-    }
-  }
-}
-
-fragment gameDetail_viewer_1Bmzm5 on Viewer {
-  game(id: $id) {
-    id
-    internalId
-    gameInfo
-    pgn
-    blackPlayer {
-      lastName
-      firstName
-      id
-    }
-    whitePlayer {
-      lastName
-      firstName
-      id
-    }
-    event
-    site
-    round
-    result
-    year
-    positions {
-      move
-      moveIndex
-      fen
-      zobristHash
-      id
     }
   }
 }
@@ -135,12 +100,6 @@ var v0 = [
     "name": "order",
     "type": "SortOrder!",
     "defaultValue": null
-  },
-  {
-    "kind": "LocalArgument",
-    "name": "id",
-    "type": "Int!",
-    "defaultValue": null
   }
 ],
 v1 = [
@@ -170,21 +129,7 @@ v2 = {
   "args": null,
   "storageKey": null
 },
-v3 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "internalId",
-  "args": null,
-  "storageKey": null
-},
-v4 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "gameInfo",
-  "args": null,
-  "storageKey": null
-},
-v5 = [
+v3 = [
   {
     "kind": "ScalarField",
     "alias": null,
@@ -200,58 +145,17 @@ v5 = [
     "storageKey": null
   },
   v2
-],
-v6 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "blackPlayer",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "Player",
-  "plural": false,
-  "selections": v5
-},
-v7 = {
-  "kind": "LinkedField",
-  "alias": null,
-  "name": "whitePlayer",
-  "storageKey": null,
-  "args": null,
-  "concreteType": "Player",
-  "plural": false,
-  "selections": v5
-},
-v8 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "event",
-  "args": null,
-  "storageKey": null
-},
-v9 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "result",
-  "args": null,
-  "storageKey": null
-},
-v10 = {
-  "kind": "ScalarField",
-  "alias": null,
-  "name": "year",
-  "args": null,
-  "storageKey": null
-};
+];
 return {
   "kind": "Request",
   "operationKind": "query",
-  "name": "app_Query",
+  "name": "gamesView_Query",
   "id": null,
-  "text": "query app_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n  $id: Int!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n    ...gameDetail_viewer_1Bmzm5\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 10, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameDetail_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    pgn\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  result\n  year\n}\n",
+  "text": "query gamesView_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 10, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  result\n  year\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "app_Query",
+    "name": "gamesView_Query",
     "type": "RootQueryType",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -282,18 +186,6 @@ return {
                 "type": null
               }
             ]
-          },
-          {
-            "kind": "FragmentSpread",
-            "name": "gameDetail_viewer",
-            "args": [
-              {
-                "kind": "Variable",
-                "name": "id",
-                "variableName": "id",
-                "type": null
-              }
-            ]
           }
         ]
       }
@@ -301,7 +193,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "app_Query",
+    "name": "gamesView_Query",
     "argumentDefinitions": v0,
     "selections": [
       {
@@ -341,13 +233,61 @@ return {
                     "plural": false,
                     "selections": [
                       v2,
-                      v3,
-                      v4,
-                      v6,
-                      v7,
-                      v8,
-                      v9,
-                      v10,
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "internalId",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "gameInfo",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "blackPlayer",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "Player",
+                        "plural": false,
+                        "selections": v3
+                      },
+                      {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "whitePlayer",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "Player",
+                        "plural": false,
+                        "selections": v3
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "event",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "result",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "year",
+                        "args": null,
+                        "storageKey": null
+                      },
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -418,93 +358,6 @@ return {
               "filter",
               "order"
             ]
-          },
-          {
-            "kind": "LinkedField",
-            "alias": null,
-            "name": "game",
-            "storageKey": null,
-            "args": [
-              {
-                "kind": "Variable",
-                "name": "id",
-                "variableName": "id",
-                "type": "Int!"
-              }
-            ],
-            "concreteType": "Game",
-            "plural": false,
-            "selections": [
-              v8,
-              v2,
-              v4,
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "pgn",
-                "args": null,
-                "storageKey": null
-              },
-              v6,
-              v7,
-              v3,
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "site",
-                "args": null,
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "round",
-                "args": null,
-                "storageKey": null
-              },
-              v9,
-              v10,
-              {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "positions",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "Position",
-                "plural": true,
-                "selections": [
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "move",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "moveIndex",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "fen",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "zobristHash",
-                    "args": null,
-                    "storageKey": null
-                  },
-                  v2
-                ]
-              }
-            ]
           }
         ]
       },
@@ -522,5 +375,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '01e819cc1ea2d6b630e50ae207d94998';
+(node/*: any*/).hash = 'a4f79a5c4b326eaaeab29988323bc73e';
 module.exports = node;

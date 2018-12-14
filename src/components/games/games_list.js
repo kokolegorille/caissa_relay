@@ -23,7 +23,7 @@ class GamesList extends Component {
             </thead>
             <tbody>
             {edges.map(
-              edge => <GameItem game={edge.node} key={edge.node.id} onHandleClick={this.props.onHandleClick} />
+              edge => <GameItem game={edge.node} key={edge.node.id} />
             )}
             </tbody>
           </table>

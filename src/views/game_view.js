@@ -4,9 +4,10 @@ import {
   graphql
 } from 'react-relay';
 
-import GameViewer from "./game_viewer";
+import GameViewer from "../components/games/game_viewer";
+import Properties from '../components/common/properties';
 
-class GameDetail extends Component {
+class GameView extends Component {
   render() {
     const {game} = this.props.viewer;
     //  Returns null to render nothing
@@ -18,21 +19,11 @@ class GameDetail extends Component {
           {game.whitePlayer.lastName}, {game.whitePlayer.firstName} - &nbsp;
           {game.blackPlayer.lastName}, {game.blackPlayer.firstName}
         </h3>
-        <dl className="dl-horizontal">
-          <dt>Event</dt>
-          <dd>{game.event}</dd>
-          <dt>Site</dt>
-          <dd>{game.site}</dd>
-          <dt>Round</dt>
-          <dd>{game.round}</dd>
-          <dt>Result</dt>
-          <dd>{game.result}</dd>
-          <dt>Year</dt>
-          <dd>{game.year}</dd>
-          <dt>Pgn</dt>
-          <dd>{game.pgn}</dd>
-        </dl>
+        <Properties properties={JSON.parse(game.gameInfo)} />
         <GameViewer positions={game.positions}/>
+
+        <h3>Pgn</h3>
+        <p>{game.pgn}</p>
       </div>
       
     );
@@ -49,10 +40,10 @@ class GameDetail extends Component {
 }
 
 export default createRefetchContainer(
-  GameDetail,
+  GameView,
   {
     viewer: graphql`
-      fragment gameDetail_viewer on Viewer 
+      fragment gameView_viewer on Viewer 
       @argumentDefinitions(
         id: {type: "Int!"}
       )
@@ -88,9 +79,9 @@ export default createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling refetch.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query gameDetailRefetchQuery($id: Int!) {
+    query gameViewRefetchQuery($id: Int!) {
       viewer {
-        ...gameDetail_viewer @arguments(id: $id)
+        ...gameView_viewer @arguments(id: $id)
       }
     }
   `

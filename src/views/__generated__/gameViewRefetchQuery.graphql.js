@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 25341a6d22a631b8e340c210e951d4ec
+ * @relayHash b1e6375a6c2ba6911cd4c8773f0b8dca
  */
 
 /* eslint-disable */
@@ -9,32 +9,32 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type gameDetail_viewer$ref = any;
-export type gameDetailRefetchQueryVariables = {|
+type gameView_viewer$ref = any;
+export type gameViewRefetchQueryVariables = {|
   id: number
 |};
-export type gameDetailRefetchQueryResponse = {|
+export type gameViewRefetchQueryResponse = {|
   +viewer: ?{|
-    +$fragmentRefs: gameDetail_viewer$ref
+    +$fragmentRefs: gameView_viewer$ref
   |}
 |};
-export type gameDetailRefetchQuery = {|
-  variables: gameDetailRefetchQueryVariables,
-  response: gameDetailRefetchQueryResponse,
+export type gameViewRefetchQuery = {|
+  variables: gameViewRefetchQueryVariables,
+  response: gameViewRefetchQueryResponse,
 |};
 */
 
 
 /*
-query gameDetailRefetchQuery(
+query gameViewRefetchQuery(
   $id: Int!
 ) {
   viewer {
-    ...gameDetail_viewer_1Bmzm5
+    ...gameView_viewer_1Bmzm5
   }
 }
 
-fragment gameDetail_viewer_1Bmzm5 on Viewer {
+fragment gameView_viewer_1Bmzm5 on Viewer {
   game(id: $id) {
     id
     internalId
@@ -102,13 +102,13 @@ v2 = [
 return {
   "kind": "Request",
   "operationKind": "query",
-  "name": "gameDetailRefetchQuery",
+  "name": "gameViewRefetchQuery",
   "id": null,
-  "text": "query gameDetailRefetchQuery(\n  $id: Int!\n) {\n  viewer {\n    ...gameDetail_viewer_1Bmzm5\n  }\n}\n\nfragment gameDetail_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    pgn\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n",
+  "text": "query gameViewRefetchQuery(\n  $id: Int!\n) {\n  viewer {\n    ...gameView_viewer_1Bmzm5\n  }\n}\n\nfragment gameView_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    pgn\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "gameDetailRefetchQuery",
+    "name": "gameViewRefetchQuery",
     "type": "RootQueryType",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -124,7 +124,7 @@ return {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "gameDetail_viewer",
+            "name": "gameView_viewer",
             "args": [
               {
                 "kind": "Variable",
@@ -140,7 +140,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "gameDetailRefetchQuery",
+    "name": "gameViewRefetchQuery",
     "argumentDefinitions": v0,
     "selections": [
       {
@@ -303,5 +303,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5fb3a25bb2040cab27406880638a6d14';
+(node/*: any*/).hash = 'f3a232c8923429f3c50b7b397036a5ee';
 module.exports = node;

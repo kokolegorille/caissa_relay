@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import { withRouter } from 'found';
 
 class GameItem extends Component {
   render() {
@@ -17,11 +18,12 @@ class GameItem extends Component {
 
   handleClick = () => {
     const {internalId} = this.props.game;
-    this.props.onHandleClick(internalId);
+    // Programatically replace path... instead of using Link!
+    this.props.router.replace(`/games/${internalId}`);
   }
 }
 
-export default createFragmentContainer(GameItem, {
+export default createFragmentContainer(withRouter(GameItem), {
   game: graphql`
     fragment gameItem_game on Game {
       id

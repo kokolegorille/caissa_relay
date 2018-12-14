@@ -9,8 +9,8 @@
 /*::
 import type { ConcreteFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type gameDetail_viewer$ref: FragmentReference;
-export type gameDetail_viewer = {|
+declare export opaque type gameView_viewer$ref: FragmentReference;
+export type gameView_viewer = {|
   +game: ?{|
     +id: string,
     +internalId: ?number,
@@ -36,7 +36,7 @@ export type gameDetail_viewer = {|
       +zobristHash: ?any,
     |}>,
   |},
-  +$refType: gameDetail_viewer$ref,
+  +$refType: gameView_viewer$ref,
 |};
 */
 
@@ -60,7 +60,7 @@ var v0 = [
 ];
 return {
   "kind": "Fragment",
-  "name": "gameDetail_viewer",
+  "name": "gameView_viewer",
   "type": "Viewer",
   "metadata": null,
   "argumentDefinitions": [
@@ -216,5 +216,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'bd0447b686f96f4cc1065a72d4657455';
+(node/*: any*/).hash = '8abeb4e086ff46f31cbeafee30646361';
 module.exports = node;
