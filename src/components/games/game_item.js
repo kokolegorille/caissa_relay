@@ -5,16 +5,19 @@ class GameItem extends Component {
   render() {
     const {game} = this.props;
     return (
-      <tr>
+      <tr onClick={this.handleClick}>
         <td>{game.whitePlayer.lastName}, {game.whitePlayer.firstName}</td>
         <td>{game.blackPlayer.lastName}, {game.blackPlayer.firstName}</td>
         <td>{game.event}</td>
-        <td>{game.site}</td>
-        <td>{game.round}</td>
         <td>{game.result}</td>
         <td>{game.year}</td>
       </tr>
     );
+  }
+
+  handleClick = () => {
+    const {internalId} = this.props.game;
+    this.props.onHandleClick(internalId);
   }
 }
 
@@ -33,8 +36,6 @@ export default createFragmentContainer(GameItem, {
         firstName
       }
       event
-      site
-      round
       result
       year
     }

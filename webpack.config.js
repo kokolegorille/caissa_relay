@@ -97,8 +97,16 @@ module.exports = (env, options) => ({
         exclude: /node_modules/,
         loader: 'babel-loader',
         options: {
+          // Babel 8 removed stage-x!
           // presets: ['env', 'react', 'stage-0'],
-          presets: ['@babel/preset-env', '@babel/react'],
+          presets: [
+            '@babel/preset-env', '@babel/react',
+            {
+              plugins: [
+                '@babel/plugin-proposal-class-properties'
+              ]
+            },
+          ],
         },
       },
       // Load stylesheets

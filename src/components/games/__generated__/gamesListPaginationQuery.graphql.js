@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 97221a17772c5a7d86c2fe4f5325a76e
+ * @relayHash 0c81cf9b09f6b18ee9e2dbc2cbd39c4f
  */
 
 /* eslint-disable */
@@ -22,26 +22,26 @@ export type GameFilter = {
   year?: ?number,
   zobristHash?: ?string,
 };
-export type gamesListQueryVariables = {|
+export type gamesListPaginationQueryVariables = {|
   count: number,
   cursor?: ?string,
   filter: GameFilter,
   order: SortOrder,
 |};
-export type gamesListQueryResponse = {|
+export type gamesListPaginationQueryResponse = {|
   +viewer: ?{|
     +$fragmentRefs: gamesList_viewer$ref
   |}
 |};
-export type gamesListQuery = {|
-  variables: gamesListQueryVariables,
-  response: gamesListQueryResponse,
+export type gamesListPaginationQuery = {|
+  variables: gamesListPaginationQueryVariables,
+  response: gamesListPaginationQueryResponse,
 |};
 */
 
 
 /*
-query gamesListQuery(
+query gamesListPaginationQuery(
   $count: Int!
   $cursor: String
   $filter: GameFilter!
@@ -86,8 +86,6 @@ fragment gameItem_game on Game {
     id
   }
   event
-  site
-  round
   result
   year
 }
@@ -173,13 +171,13 @@ v3 = [
 return {
   "kind": "Request",
   "operationKind": "query",
-  "name": "gamesListQuery",
+  "name": "gamesListPaginationQuery",
   "id": null,
-  "text": "query gamesListQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  site\n  round\n  result\n  year\n}\n",
+  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  result\n  year\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "gamesListQuery",
+    "name": "gamesListPaginationQuery",
     "type": "RootQueryType",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -229,7 +227,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "gamesListQuery",
+    "name": "gamesListPaginationQuery",
     "argumentDefinitions": v0,
     "selections": [
       {
@@ -268,14 +266,14 @@ return {
                     "concreteType": "Game",
                     "plural": false,
                     "selections": [
+                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "event",
+                        "name": "internalId",
                         "args": null,
                         "storageKey": null
                       },
-                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -306,21 +304,7 @@ return {
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "internalId",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "site",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "round",
+                        "name": "event",
                         "args": null,
                         "storageKey": null
                       },
@@ -425,5 +409,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '61711483ca42332ba845e0e989d4f25e';
+(node/*: any*/).hash = '5837b2b7f46707a8101cdf3c297dc512';
 module.exports = node;

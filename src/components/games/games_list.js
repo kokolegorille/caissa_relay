@@ -10,16 +10,27 @@ class GamesList extends Component {
     const {edges} = this.props.viewer.games;
     return (
       <div>
-        <table>
-          <tbody>
-          {edges.map(
-            edge => <GameItem game={edge.node} key={edge.node.id} />
-          )}
-          </tbody>
-        </table>
-        <button onClick={() => this._loadMore()}>
-          Load More
-        </button>
+        <div style={{overflow: 'auto', height: '600px'}}>
+          <table className="table table-sm table-hover">
+            <thead>
+              <tr>
+                <th>White</th>
+                <th>Black</th>
+                <th>Event</th>
+                <th>Result</th>
+                <th>Year</th>
+              </tr>
+            </thead>
+            <tbody>
+            {edges.map(
+              edge => <GameItem game={edge.node} key={edge.node.id} onHandleClick={this.props.onHandleClick} />
+            )}
+            </tbody>
+          </table>
+          <button onClick={() => this._loadMore()} className="btn btn-light" >
+            Load More
+          </button>
+        </div>
       </div>
     );
   }
@@ -98,7 +109,7 @@ export default createPaginationContainer(
     query: graphql`
       # Pagination query to be fetched upon calling loadMore.
       # Notice the re-use of fragment, and the shape of this query matches fragment spec.
-      query gamesListQuery(
+      query gamesListPaginationQuery(
         $count: Int!
         $cursor: String
         $filter: GameFilter!
