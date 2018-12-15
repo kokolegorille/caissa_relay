@@ -10,13 +10,15 @@ class GamesList extends Component {
     const {edges} = this.props.viewer.games;
     return (
       <div>
-        <div style={{overflow: 'auto', height: '600px'}}>
+        <div style={{overflow: 'auto', maxHeight: '800px'}}>
           <table className="table table-sm table-hover">
             <thead>
               <tr>
                 <th>White</th>
                 <th>Black</th>
                 <th>Event</th>
+                <th>Site</th>
+                <th>Round</th>
                 <th>Result</th>
                 <th>Year</th>
               </tr>

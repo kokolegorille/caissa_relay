@@ -3,6 +3,7 @@ import {
   createRefetchContainer,
   graphql
 } from 'react-relay';
+import { Link } from 'found';
 
 import GameViewer from "../components/games/game_viewer";
 import Properties from '../components/common/properties';
@@ -19,6 +20,7 @@ class GameView extends Component {
           {game.whitePlayer.lastName}, {game.whitePlayer.firstName} - &nbsp;
           {game.blackPlayer.lastName}, {game.blackPlayer.firstName}
         </h3>
+        <Link to="/games">Close Game</Link>
         <Properties properties={JSON.parse(game.gameInfo)} />
         <GameViewer positions={game.positions}/>
 

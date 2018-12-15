@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0c81cf9b09f6b18ee9e2dbc2cbd39c4f
+ * @relayHash 75005811be129e137124539ebe747e01
  */
 
 /* eslint-disable */
@@ -86,6 +86,8 @@ fragment gameItem_game on Game {
     id
   }
   event
+  site
+  round
   result
   year
 }
@@ -173,7 +175,7 @@ return {
   "operationKind": "query",
   "name": "gamesListPaginationQuery",
   "id": null,
-  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  result\n  year\n}\n",
+  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  site\n  round\n  result\n  year\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -266,14 +268,14 @@ return {
                     "concreteType": "Game",
                     "plural": false,
                     "selections": [
-                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "internalId",
+                        "name": "event",
                         "args": null,
                         "storageKey": null
                       },
+                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -304,7 +306,21 @@ return {
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "event",
+                        "name": "internalId",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "site",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "round",
                         "args": null,
                         "storageKey": null
                       },

@@ -35,15 +35,16 @@ export default makeRouteConfig(
     <Route Component={HomeView} />
     <Route
       path="/games"
-      Component={GamesView}
-    />
-    <Route
-      path="/games/:id"
-      query={GameViewQuery}
-      prepareVariables={params => ({id: parseInt(params.id)})}
-      Component={GameView}
-      renderer={renderer} 
-    />
+      Component={GamesView} >
+      <Route
+        path="/:id"
+        query={GameViewQuery}
+        prepareVariables={params => ({id: parseInt(params.id)})}
+        Component={GameView}
+        renderer={renderer} 
+      />
+    </Route>
+
     <Route
       path="/*"
       Component={NoMatchView} 

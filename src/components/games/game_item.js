@@ -10,6 +10,8 @@ class GameItem extends Component {
         <td>{game.whitePlayer.lastName}, {game.whitePlayer.firstName}</td>
         <td>{game.blackPlayer.lastName}, {game.blackPlayer.firstName}</td>
         <td>{game.event}</td>
+        <td>{game.site}</td>
+        <td>{game.round}</td>
         <td>{game.result}</td>
         <td>{game.year}</td>
       </tr>
@@ -38,6 +40,8 @@ export default createFragmentContainer(withRouter(GameItem), {
         firstName
       }
       event
+      site
+      round
       result
       year
     }

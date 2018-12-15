@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 4f76d281cfa37b2ef1561cfa2fb629cb
+ * @relayHash 41c155e73749e3feefa6532266742d74
  */
 
 /* eslint-disable */
@@ -82,6 +82,8 @@ fragment gameItem_game on Game {
     id
   }
   event
+  site
+  round
   result
   year
 }
@@ -151,7 +153,7 @@ return {
   "operationKind": "query",
   "name": "gamesView_Query",
   "id": null,
-  "text": "query gamesView_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 10, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  result\n  year\n}\n",
+  "text": "query gamesView_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 10, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  site\n  round\n  result\n  year\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -232,14 +234,14 @@ return {
                     "concreteType": "Game",
                     "plural": false,
                     "selections": [
-                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "internalId",
+                        "name": "event",
                         "args": null,
                         "storageKey": null
                       },
+                      v2,
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -270,7 +272,21 @@ return {
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "event",
+                        "name": "internalId",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "site",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "round",
                         "args": null,
                         "storageKey": null
                       },

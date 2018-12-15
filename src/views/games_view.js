@@ -8,10 +8,21 @@ import GamesList from "../components/games/games_list";
 export default class GamesView extends Component {
     state = {
       filter: {},
-      order: 'ASC',
+      order: 'DESC',
     }
 
     render() {
+      console.log(this.props);
+
+      let classA, classB;
+      if(this.props.params.id) {
+        classA = "col-sm-12 col-md-3"
+        classB = "col-sm-12 col-md-9"
+      } else {
+        classA = "col-sm-12 col-md-12"
+        classB = ""
+      }
+
       return (
         <QueryRenderer
           environment={environment}
@@ -37,9 +48,12 @@ export default class GamesView extends Component {
               return <div>Loading...</div>;
             }
             return (
-              <div>
-                <GameFilter initialState={this.state} onHandleSubmit={this.handleFilterSubmit}/>
-                <GamesList viewer={props.viewer} />
+              <div className="row">
+                <div className={classA}>
+                  <GameFilter initialState={this.state} onHandleSubmit={this.handleFilterSubmit}/>
+                  <GamesList viewer={props.viewer} />
+                </div>
+                <div id="gamePanel" className={classB}>{this.props.children}</div>
               </div>
             );
           }} 

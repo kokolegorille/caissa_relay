@@ -72,7 +72,7 @@ module.exports = (env, options) => ({
       cacheGroups: {
         vendor: {
           // test: /react|bootstrap|font-awesome/,
-          test: /react/,
+          test: /react|bootstrap/,
           chunks: "initial",
           name: "vendor",
           enforce: true

@@ -23,6 +23,8 @@ export type gameItem_game = {|
     +firstName: ?string,
   |},
   +event: ?string,
+  +site: ?string,
+  +round: ?string,
   +result: ?string,
   +year: ?number,
   +$refType: gameItem_game$ref,
@@ -105,6 +107,20 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
+      "name": "site",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "round",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
       "name": "result",
       "args": null,
       "storageKey": null
@@ -120,5 +136,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '37e6a4c7ea3c214cd5a33135ee242bae';
+(node/*: any*/).hash = 'a89d8ef1b1651bb6a83743b68a458675';
 module.exports = node;

@@ -6,7 +6,7 @@ const App = ({children}) => (
   <div>
     <Navbar />
     <main role="main">
-      <div className="container">{children}</div>
+      <div className="container-fluid">{children}</div>
     </main>
   </div>
 );
