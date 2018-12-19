@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash b1e6375a6c2ba6911cd4c8773f0b8dca
+ * @relayHash feb008ec59ad78db81768370984bf089
  */
 
 /* eslint-disable */
@@ -39,7 +39,6 @@ fragment gameView_viewer_1Bmzm5 on Viewer {
     id
     internalId
     gameInfo
-    pgn
     blackPlayer {
       lastName
       firstName
@@ -104,7 +103,7 @@ return {
   "operationKind": "query",
   "name": "gameViewRefetchQuery",
   "id": null,
-  "text": "query gameViewRefetchQuery(\n  $id: Int!\n) {\n  viewer {\n    ...gameView_viewer_1Bmzm5\n  }\n}\n\nfragment gameView_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    pgn\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n",
+  "text": "query gameViewRefetchQuery(\n  $id: Int!\n) {\n  viewer {\n    ...gameView_viewer_1Bmzm5\n  }\n}\n\nfragment gameView_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -180,13 +179,6 @@ return {
                 "kind": "ScalarField",
                 "alias": null,
                 "name": "gameInfo",
-                "args": null,
-                "storageKey": null
-              },
-              {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "pgn",
                 "args": null,
                 "storageKey": null
               },

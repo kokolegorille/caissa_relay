@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 const defaultState = {
   player: '', whitePlayer: '', blackPlayer: '',
   event: '', site: '', round: '', result: '', year: '',
-  order: 'ASC',
+  order: 'DESC',
 };
 
 export default class GameFilter extends Component {
@@ -77,7 +77,7 @@ export default class GameFilter extends Component {
             <input type="text" placeholder="Result" value={result} onChange={e => this.handleChange(e, "result")} className="form-control form-control-sm" />
           </div>
           <div className="col-sm-6">
-            <input type="number" placeholder="Year" value={year} onChange={e => this.handleChange(e, "year")} className="form-control form-control-sm" />
+            <input type="number" placeholder="Year (equal or above)" value={year} onChange={e => this.handleChange(e, "year")} className="form-control form-control-sm" />
           </div>
         </div>
 

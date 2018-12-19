@@ -1,6 +1,14 @@
+@import './fonts';
 @import "./chessground";
 @import "./theme";
 @import "./base";
 
-$font-size-base: 0.875rem;
+// Body
+// $body-bg: #ecf0f1;
+
+// Typography
+$font-size-base: 0.9rem;
+$line-height-base: 1.6;
+
 @import '../../node_modules/bootstrap/scss/bootstrap';
+@import '../../node_modules/font-awesome/css/font-awesome.css';

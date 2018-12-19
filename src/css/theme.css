@@ -1,8 +1,8 @@
 .cg-board-wrap {
   /* background-image: url('/images/board/blue.svg'); */
   background-image: url('/images/board/brown.svg');
-  width:400px;
-  height:400px;
+  width:500px;
+  height:500px;
   margin-bottom: 2rem;
 }
 

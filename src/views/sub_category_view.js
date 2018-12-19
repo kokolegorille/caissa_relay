@@ -5,28 +5,28 @@ import {
 } from 'react-relay';
 import { Link } from 'found';
 
-import GameViewer from "../components/games/game_viewer";
+import EcoViewer from "../components/eco/eco_viewer";
 
-class GameView extends Component {
+class SubCategoryView extends Component {
   render() {
-    const {game} = this.props.viewer;
+    const {subCategory} = this.props.viewer;
     //  Returns null to render nothing
-    if(game == null) { return null }
+    if(subCategory == null) { return null }
     
     return (
       <div>
-        <Link to="/games">
+        <Link to="/eco">
           <i className="fa fa-times"></i>
-          Close Game
+          Close Eco
         </Link>
-        <GameViewer game={game} />
+        <EcoViewer subCategory={subCategory} />
       </div>
     );
   }
 
   _refetch() {
     this.props.relay.refetch(
-      {id: this.props.viewer.game.id},  // Our refetchQuery needs to know the `id`
+      {id: this.props.viewer.subCategory.id},  // Our refetchQuery needs to know the `id`
       null,  // We can use the refetchVariables as renderVariables
       () => { console.log('Refetch done') },
       {force: true},  // Assuming we've configured a network layer cache, we want to ensure we fetch the latest data.
@@ -35,37 +35,24 @@ class GameView extends Component {
 }
 
 export default createRefetchContainer(
-  GameView,
+  SubCategoryView,
   {
     viewer: graphql`
-      fragment gameView_viewer on Viewer 
+      fragment subCategoryView_viewer on Viewer 
       @argumentDefinitions(
         id: {type: "Int!"}
       )
       {
-        game(id: $id) {
+        subCategory(id: $id) {
           id
           internalId
-          gameInfo
-          blackPlayer {
-            lastName
-            firstName
+          category {
+            volume
+            code
           }
-          whitePlayer {
-            lastName
-            firstName
-          }
-          event
-          site
-          round
-          result
-          year
-          positions {
-            move
-            moveIndex
-            fen
-            zobristHash
-          }
+          description
+          code
+          zobristHash
         }
       }
     `
@@ -73,9 +60,9 @@ export default createRefetchContainer(
   graphql`
     # Refetch query to be fetched upon calling refetch.
     # Notice that we re-use our fragment and the shape of this query matches our fragment spec.
-    query gameViewRefetchQuery($id: Int!) {
+    query subCategoryViewRefetchQuery($id: Int!) {
       viewer {
-        ...gameView_viewer @arguments(id: $id)
+        ...subCategoryView_viewer @arguments(id: $id)
       }
     }
   `

@@ -22,11 +22,15 @@ export type gameItem_game = {|
     +lastName: ?string,
     +firstName: ?string,
   |},
+  +whiteElo: ?number,
+  +blackElo: ?number,
   +event: ?string,
   +site: ?string,
   +round: ?string,
   +result: ?string,
   +year: ?number,
+  +month: ?number,
+  +day: ?number,
   +$refType: gameItem_game$ref,
 |};
 */
@@ -59,14 +63,14 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "id",
+      "name": "event",
       "args": null,
       "storageKey": null
     },
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "internalId",
+      "name": "id",
       "args": null,
       "storageKey": null
     },
@@ -100,7 +104,21 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "event",
+      "name": "whiteElo",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "blackElo",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "internalId",
       "args": null,
       "storageKey": null
     },
@@ -131,10 +149,24 @@ return {
       "name": "year",
       "args": null,
       "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "month",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "day",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a89d8ef1b1651bb6a83743b68a458675';
+(node/*: any*/).hash = '297eb279b37848231564bf8f7272cfec';
 module.exports = node;

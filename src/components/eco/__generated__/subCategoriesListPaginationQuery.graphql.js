@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dde82d7271274e919c829cacc37c5144
+ * @relayHash b0432e43d9cf984fe0712e46d90c1161
  */
 
 /* eslint-disable */
@@ -9,51 +9,45 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type gamesList_viewer$ref = any;
-export type SortOrder = "ASC" | "ASC_NULLS_FIRST" | "ASC_NULLS_LAST" | "DESC" | "DESC_NULLS_FIRST" | "DESC_NULLS_LAST" | "%future added value";
-export type GameFilter = {
-  blackPlayer?: ?string,
-  event?: ?string,
-  player?: ?string,
-  result?: ?string,
-  round?: ?string,
-  site?: ?string,
-  whitePlayer?: ?string,
-  year?: ?number,
-  zobristHashes?: ?$ReadOnlyArray<?string>,
-};
-export type gamesView_QueryVariables = {|
-  filter: GameFilter,
-  order: SortOrder,
+type subCategoriesList_viewer$ref = any;
+export type subCategoriesListPaginationQueryVariables = {|
+  count: number,
+  cursor?: ?string,
+  description?: ?string,
+  code?: ?string,
+  zobristHash?: ?string,
 |};
-export type gamesView_QueryResponse = {|
+export type subCategoriesListPaginationQueryResponse = {|
   +viewer: ?{|
-    +$fragmentRefs: gamesList_viewer$ref
+    +$fragmentRefs: subCategoriesList_viewer$ref
   |}
 |};
-export type gamesView_Query = {|
-  variables: gamesView_QueryVariables,
-  response: gamesView_QueryResponse,
+export type subCategoriesListPaginationQuery = {|
+  variables: subCategoriesListPaginationQueryVariables,
+  response: subCategoriesListPaginationQueryResponse,
 |};
 */
 
 
 /*
-query gamesView_Query(
-  $filter: GameFilter!
-  $order: SortOrder!
+query subCategoriesListPaginationQuery(
+  $count: Int!
+  $cursor: String
+  $description: String
+  $code: String
+  $zobristHash: String
 ) {
   viewer {
-    ...gamesList_viewer_3Rf5Y0
+    ...subCategoriesList_viewer_8nvTQ
   }
 }
 
-fragment gamesList_viewer_3Rf5Y0 on Viewer {
-  games(first: 30, filter: $filter, order: $order) {
+fragment subCategoriesList_viewer_8nvTQ on Viewer {
+  subCategories(first: $count, after: $cursor, description: $description, code: $code, zobristHash: $zobristHash) {
     edges {
       node {
         id
-        ...gameItem_game
+        ...subCategoryItem_subCategory
         __typename
       }
       cursor
@@ -67,29 +61,18 @@ fragment gamesList_viewer_3Rf5Y0 on Viewer {
   }
 }
 
-fragment gameItem_game on Game {
+fragment subCategoryItem_subCategory on SubCategory {
   id
   internalId
-  gameInfo
-  blackPlayer {
-    lastName
-    firstName
+  category {
+    volume
+    code
     id
   }
-  whitePlayer {
-    lastName
-    firstName
-    id
-  }
-  whiteElo
-  blackElo
-  event
-  site
-  round
-  result
-  year
-  month
-  day
+  description
+  code
+  pgn
+  zobristHash
 }
 */
 
@@ -97,35 +80,65 @@ const node/*: ConcreteRequest*/ = (function(){
 var v0 = [
   {
     "kind": "LocalArgument",
-    "name": "filter",
-    "type": "GameFilter!",
+    "name": "count",
+    "type": "Int!",
     "defaultValue": null
   },
   {
     "kind": "LocalArgument",
-    "name": "order",
-    "type": "SortOrder!",
+    "name": "cursor",
+    "type": "String",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "description",
+    "type": "String",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "code",
+    "type": "String",
+    "defaultValue": null
+  },
+  {
+    "kind": "LocalArgument",
+    "name": "zobristHash",
+    "type": "String",
     "defaultValue": null
   }
 ],
 v1 = [
   {
     "kind": "Variable",
-    "name": "filter",
-    "variableName": "filter",
-    "type": "GameFilter"
+    "name": "after",
+    "variableName": "cursor",
+    "type": "String"
   },
   {
-    "kind": "Literal",
+    "kind": "Variable",
+    "name": "code",
+    "variableName": "code",
+    "type": "String"
+  },
+  {
+    "kind": "Variable",
+    "name": "description",
+    "variableName": "description",
+    "type": "String"
+  },
+  {
+    "kind": "Variable",
     "name": "first",
-    "value": 30,
+    "variableName": "count",
     "type": "Int"
   },
   {
     "kind": "Variable",
-    "name": "order",
-    "variableName": "order",
-    "type": "SortOrder"
+    "name": "zobristHash",
+    "variableName": "zobristHash",
+    "type": "String"
   }
 ],
 v2 = {
@@ -135,33 +148,23 @@ v2 = {
   "args": null,
   "storageKey": null
 },
-v3 = [
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "lastName",
-    "args": null,
-    "storageKey": null
-  },
-  {
-    "kind": "ScalarField",
-    "alias": null,
-    "name": "firstName",
-    "args": null,
-    "storageKey": null
-  },
-  v2
-];
+v3 = {
+  "kind": "ScalarField",
+  "alias": null,
+  "name": "code",
+  "args": null,
+  "storageKey": null
+};
 return {
   "kind": "Request",
   "operationKind": "query",
-  "name": "gamesView_Query",
+  "name": "subCategoriesListPaginationQuery",
   "id": null,
-  "text": "query gamesView_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 30, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  whiteElo\n  blackElo\n  event\n  site\n  round\n  result\n  year\n  month\n  day\n}\n",
+  "text": "query subCategoriesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $description: String\n  $code: String\n  $zobristHash: String\n) {\n  viewer {\n    ...subCategoriesList_viewer_8nvTQ\n  }\n}\n\nfragment subCategoriesList_viewer_8nvTQ on Viewer {\n  subCategories(first: $count, after: $cursor, description: $description, code: $code, zobristHash: $zobristHash) {\n    edges {\n      node {\n        id\n        ...subCategoryItem_subCategory\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment subCategoryItem_subCategory on SubCategory {\n  id\n  internalId\n  category {\n    volume\n    code\n    id\n  }\n  description\n  code\n  pgn\n  zobristHash\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "gamesView_Query",
+    "name": "subCategoriesListPaginationQuery",
     "type": "RootQueryType",
     "metadata": null,
     "argumentDefinitions": v0,
@@ -177,18 +180,36 @@ return {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "gamesList_viewer",
+            "name": "subCategoriesList_viewer",
             "args": [
               {
                 "kind": "Variable",
-                "name": "filter",
-                "variableName": "filter",
+                "name": "code",
+                "variableName": "code",
                 "type": null
               },
               {
                 "kind": "Variable",
-                "name": "order",
-                "variableName": "order",
+                "name": "count",
+                "variableName": "count",
+                "type": null
+              },
+              {
+                "kind": "Variable",
+                "name": "cursor",
+                "variableName": "cursor",
+                "type": null
+              },
+              {
+                "kind": "Variable",
+                "name": "description",
+                "variableName": "description",
+                "type": null
+              },
+              {
+                "kind": "Variable",
+                "name": "zobristHash",
+                "variableName": "zobristHash",
                 "type": null
               }
             ]
@@ -199,7 +220,7 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "gamesView_Query",
+    "name": "subCategoriesListPaginationQuery",
     "argumentDefinitions": v0,
     "selections": [
       {
@@ -214,10 +235,10 @@ return {
           {
             "kind": "LinkedField",
             "alias": null,
-            "name": "games",
+            "name": "subCategories",
             "storageKey": null,
             "args": v1,
-            "concreteType": "GameConnection",
+            "concreteType": "SubCategoryConnection",
             "plural": false,
             "selections": [
               {
@@ -226,7 +247,7 @@ return {
                 "name": "edges",
                 "storageKey": null,
                 "args": null,
-                "concreteType": "GameEdge",
+                "concreteType": "SubCategoryEdge",
                 "plural": true,
                 "selections": [
                   {
@@ -235,58 +256,10 @@ return {
                     "name": "node",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "Game",
+                    "concreteType": "SubCategory",
                     "plural": false,
                     "selections": [
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "event",
-                        "args": null,
-                        "storageKey": null
-                      },
                       v2,
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "gameInfo",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "LinkedField",
-                        "alias": null,
-                        "name": "blackPlayer",
-                        "storageKey": null,
-                        "args": null,
-                        "concreteType": "Player",
-                        "plural": false,
-                        "selections": v3
-                      },
-                      {
-                        "kind": "LinkedField",
-                        "alias": null,
-                        "name": "whitePlayer",
-                        "storageKey": null,
-                        "args": null,
-                        "concreteType": "Player",
-                        "plural": false,
-                        "selections": v3
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "whiteElo",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "blackElo",
-                        "args": null,
-                        "storageKey": null
-                      },
                       {
                         "kind": "ScalarField",
                         "alias": null,
@@ -295,44 +268,44 @@ return {
                         "storageKey": null
                       },
                       {
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "category",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "Category",
+                        "plural": false,
+                        "selections": [
+                          {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "volume",
+                            "args": null,
+                            "storageKey": null
+                          },
+                          v3,
+                          v2
+                        ]
+                      },
+                      {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "site",
+                        "name": "description",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      v3,
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "pgn",
                         "args": null,
                         "storageKey": null
                       },
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "round",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "result",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "year",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "month",
-                        "args": null,
-                        "storageKey": null
-                      },
-                      {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "day",
+                        "name": "zobristHash",
                         "args": null,
                         "storageKey": null
                       },
@@ -398,13 +371,14 @@ return {
           {
             "kind": "LinkedHandle",
             "alias": null,
-            "name": "games",
+            "name": "subCategories",
             "args": v1,
             "handle": "connection",
-            "key": "gamesList_games",
+            "key": "subCategoriesList_subCategories",
             "filters": [
-              "filter",
-              "order"
+              "description",
+              "code",
+              "zobristHash"
             ]
           }
         ]
@@ -423,5 +397,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = 'a4f79a5c4b326eaaeab29988323bc73e';
+(node/*: any*/).hash = 'a833c49662aa770d363ac6cb0dcd73c7';
 module.exports = node;

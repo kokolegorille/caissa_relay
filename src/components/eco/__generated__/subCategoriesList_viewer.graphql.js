@@ -8,15 +8,15 @@
 
 /*::
 import type { ConcreteFragment } from 'relay-runtime';
-type gameItem_game$ref = any;
+type subCategoryItem_subCategory$ref = any;
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type gamesList_viewer$ref: FragmentReference;
-export type gamesList_viewer = {|
-  +games: ?{|
+declare export opaque type subCategoriesList_viewer$ref: FragmentReference;
+export type subCategoriesList_viewer = {|
+  +subCategories: ?{|
     +edges: ?$ReadOnlyArray<?{|
       +node: ?{|
         +id: string,
-        +$fragmentRefs: gameItem_game$ref,
+        +$fragmentRefs: subCategoryItem_subCategory$ref,
       |}
     |}>,
     +pageInfo: {|
@@ -26,14 +26,14 @@ export type gamesList_viewer = {|
       +endCursor: ?string,
     |},
   |},
-  +$refType: gamesList_viewer$ref,
+  +$refType: subCategoriesList_viewer$ref,
 |};
 */
 
 
 const node/*: ConcreteFragment*/ = {
   "kind": "Fragment",
-  "name": "gamesList_viewer",
+  "name": "subCategoriesList_viewer",
   "type": "Viewer",
   "metadata": {
     "connection": [
@@ -42,7 +42,7 @@ const node/*: ConcreteFragment*/ = {
         "cursor": "cursor",
         "direction": "forward",
         "path": [
-          "games"
+          "subCategories"
         ]
       }
     ]
@@ -62,38 +62,50 @@ const node/*: ConcreteFragment*/ = {
     },
     {
       "kind": "LocalArgument",
-      "name": "filter",
-      "type": "GameFilter",
-      "defaultValue": {}
+      "name": "description",
+      "type": "String",
+      "defaultValue": null
     },
     {
       "kind": "LocalArgument",
-      "name": "order",
-      "type": "SortOrder",
-      "defaultValue": "ASC"
+      "name": "code",
+      "type": "String",
+      "defaultValue": null
+    },
+    {
+      "kind": "LocalArgument",
+      "name": "zobristHash",
+      "type": "String",
+      "defaultValue": null
     }
   ],
   "selections": [
     {
       "kind": "LinkedField",
-      "alias": "games",
-      "name": "__gamesList_games_connection",
+      "alias": "subCategories",
+      "name": "__subCategoriesList_subCategories_connection",
       "storageKey": null,
       "args": [
         {
           "kind": "Variable",
-          "name": "filter",
-          "variableName": "filter",
-          "type": "GameFilter"
+          "name": "code",
+          "variableName": "code",
+          "type": "String"
         },
         {
           "kind": "Variable",
-          "name": "order",
-          "variableName": "order",
-          "type": "SortOrder"
+          "name": "description",
+          "variableName": "description",
+          "type": "String"
+        },
+        {
+          "kind": "Variable",
+          "name": "zobristHash",
+          "variableName": "zobristHash",
+          "type": "String"
         }
       ],
-      "concreteType": "GameConnection",
+      "concreteType": "SubCategoryConnection",
       "plural": false,
       "selections": [
         {
@@ -102,7 +114,7 @@ const node/*: ConcreteFragment*/ = {
           "name": "edges",
           "storageKey": null,
           "args": null,
-          "concreteType": "GameEdge",
+          "concreteType": "SubCategoryEdge",
           "plural": true,
           "selections": [
             {
@@ -111,7 +123,7 @@ const node/*: ConcreteFragment*/ = {
               "name": "node",
               "storageKey": null,
               "args": null,
-              "concreteType": "Game",
+              "concreteType": "SubCategory",
               "plural": false,
               "selections": [
                 {
@@ -123,7 +135,7 @@ const node/*: ConcreteFragment*/ = {
                 },
                 {
                   "kind": "FragmentSpread",
-                  "name": "gameItem_game",
+                  "name": "subCategoryItem_subCategory",
                   "args": null
                 },
                 {
@@ -188,5 +200,5 @@ const node/*: ConcreteFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'feed519d528c84d521a855950f4d5ccb';
+(node/*: any*/).hash = 'cf090146f5be93e20187ba4907d75168';
 module.exports = node;

@@ -3,47 +3,42 @@ import {
   createPaginationContainer,
   graphql
 } from 'react-relay';
-import GameItem from './game_item';
+import SubCategoryItem from './sub_category_item';
 
-class GamesList extends Component {
+class SubCategoriesList extends Component {
   render() {
-    const {edges} = this.props.viewer.games;
-    const {currentGameId} = this.props;
+    const {edges} = this.props.viewer.subCategories;
+    const {currentSubCategoryId} = this.props;
 
     return (
       <div>
-        <div style={{overflow: 'auto', maxHeight: '800px'}}>
-          <table className="table table-sm table-hover">
-            <thead>
-              <tr>
-                <th>White</th>
-                <th>WhiteElo</th>
-                <th>Black</th>
-                <th>BlackElo</th>
-                <th>Event</th>
-                <th>Site</th>
-                <th>Round</th>
-                <th>Result</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-            {edges.map(
-              edge => <GameItem game={edge.node} key={edge.node.id} currentGameId={currentGameId} />
-            )}
-            </tbody>
-          </table>
-          {this._renderLoadMore()}
-        </div>
+      <div style={{overflow: 'auto', maxHeight: '800px'}}>
+        <table className="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+              <th>Pgn</th>
+              <th>Zobrist Hash</th>
+            </tr>
+          </thead>
+          <tbody>
+          {edges.map(
+            edge => <SubCategoryItem subCategory={edge.node} key={edge.node.id} currentSubCategoryId={currentSubCategoryId} />
+          )}
+          </tbody>
+        </table>
+        {this._renderLoadMore()}
       </div>
+    </div>
     );
   }
-  
+
   _renderLoadMore() {
     const {viewer} = this.props;
-    if (!viewer.games) return null;
+    if (!viewer.subCategories) return null;
     
-    const {pageInfo} = viewer.games;
+    const {pageInfo} = viewer.subCategories;
     if (!pageInfo.hasNextPage) return null;
 
     return (
@@ -68,26 +63,28 @@ class GamesList extends Component {
 }
 
 export default createPaginationContainer(
-  GamesList,
+  SubCategoriesList,
   {
     viewer: graphql`
-      fragment gamesList_viewer on Viewer
+      fragment subCategoriesList_viewer on Viewer
       @argumentDefinitions(
         count: {type: "Int", defaultValue: 30}
         cursor: {type: "String"}
-        filter: {type: "GameFilter", defaultValue: {}}
-        order: {type: "SortOrder", defaultValue: ASC}
+        description: {type: "String"}
+        code: {type: "String"}
+        zobristHash: {type: "String"}
       ) {
-        games(
+        subCategories(
           first: $count
           after: $cursor
-          filter: $filter
-          order: $order
-        ) @connection(key: "gamesList_games") {
+          description: $description
+          code: $code
+          zobristHash: $zobristHash
+        ) @connection(key: "subCategoriesList_subCategories") {
           edges {
             node {
               id,
-              ...gameItem_game
+              ...subCategoryItem_subCategory
             }
           },
           pageInfo {
@@ -103,7 +100,7 @@ export default createPaginationContainer(
   {
     direction: 'forward',
     getConnectionFromProps(props) {
-      return props.viewer && props.viewer.games;
+      return props.viewer && props.viewer.subCategories;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
@@ -120,21 +117,23 @@ export default createPaginationContainer(
         // orderBy: fragmentVariables.orderBy,
         
         // Pass matching variable on reload!
-        filter: fragmentVariables.filter || {},
-        order: fragmentVariables.order || 'ASC'
+        description: fragmentVariables.description,
+        code: fragmentVariables.code,
+        zobristHash: fragmentVariables.zobristHash,
       };
     },
     query: graphql`
       # Pagination query to be fetched upon calling loadMore.
       # Notice the re-use of fragment, and the shape of this query matches fragment spec.
-      query gamesListPaginationQuery(
+      query subCategoriesListPaginationQuery(
         $count: Int!
         $cursor: String
-        $filter: GameFilter!
-        $order: SortOrder!
+        $description: String
+        $code: String
+        $zobristHash: String
       ) {
         viewer {
-          ...gamesList_viewer @arguments(count: $count, cursor: $cursor, filter: $filter, order: $order)
+          ...subCategoriesList_viewer @arguments(count: $count, cursor: $cursor, description: $description, code: $code, zobristHash: $zobristHash)
         }
       }
     `

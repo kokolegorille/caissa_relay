@@ -6,8 +6,13 @@ const App = ({children}) => (
   <div>
     <Navbar />
     <main role="main">
-      <div className="container-fluid">{children}</div>
+      <div className="container-fluid">
+        {children}
+      </div>
     </main>
+    <footer className="container-fluid footer">
+      <p>&copy; Copyright klg 2018</p>
+    </footer>
   </div>
 );
 

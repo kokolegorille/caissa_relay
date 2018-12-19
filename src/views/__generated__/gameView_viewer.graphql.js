@@ -15,7 +15,6 @@ export type gameView_viewer = {|
     +id: string,
     +internalId: ?number,
     +gameInfo: ?any,
-    +pgn: ?string,
     +blackPlayer: ?{|
       +lastName: ?string,
       +firstName: ?string,
@@ -106,13 +105,6 @@ return {
           "kind": "ScalarField",
           "alias": null,
           "name": "gameInfo",
-          "args": null,
-          "storageKey": null
-        },
-        {
-          "kind": "ScalarField",
-          "alias": null,
-          "name": "pgn",
           "args": null,
           "storageKey": null
         },
@@ -216,5 +208,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '8abeb4e086ff46f31cbeafee30646361';
+(node/*: any*/).hash = 'f949c7c487418ae592cde1d8c9858cc9';
 module.exports = node;

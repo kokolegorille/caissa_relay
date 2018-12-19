@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 75005811be129e137124539ebe747e01
+ * @relayHash 9d634debd89ab4767344f047bb007769
  */
 
 /* eslint-disable */
@@ -20,7 +20,7 @@ export type GameFilter = {
   site?: ?string,
   whitePlayer?: ?string,
   year?: ?number,
-  zobristHash?: ?string,
+  zobristHashes?: ?$ReadOnlyArray<?string>,
 };
 export type gamesListPaginationQueryVariables = {|
   count: number,
@@ -85,11 +85,15 @@ fragment gameItem_game on Game {
     firstName
     id
   }
+  whiteElo
+  blackElo
   event
   site
   round
   result
   year
+  month
+  day
 }
 */
 
@@ -175,7 +179,7 @@ return {
   "operationKind": "query",
   "name": "gamesListPaginationQuery",
   "id": null,
-  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  event\n  site\n  round\n  result\n  year\n}\n",
+  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  whiteElo\n  blackElo\n  event\n  site\n  round\n  result\n  year\n  month\n  day\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -306,6 +310,20 @@ return {
                       {
                         "kind": "ScalarField",
                         "alias": null,
+                        "name": "whiteElo",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "blackElo",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
                         "name": "internalId",
                         "args": null,
                         "storageKey": null
@@ -335,6 +353,20 @@ return {
                         "kind": "ScalarField",
                         "alias": null,
                         "name": "year",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "month",
+                        "args": null,
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "name": "day",
                         "args": null,
                         "storageKey": null
                       },

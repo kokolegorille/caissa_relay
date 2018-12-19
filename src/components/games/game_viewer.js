@@ -1,51 +1,103 @@
 import React, {Component} from 'react';
+
 import Chessground from "../chessground/chessground";
+import Properties from '../common/properties';
+import Tabs from '../tabs/tabs';
+import ScoreSheet from "./score_sheet";
+
+const defaultState = { currentMoveIndex: 0 }
 
 export default class GameViewer extends Component {
-  state = { current_move_index: 0 }
+  state = defaultState
+
+  componentWillReceiveProps() {
+    // When game id change, the element is reloaded, reset internal state here!
+    this.setState(defaultState)
+  }
 
   render() {
-    const {current_move_index} = this.state;
-    const {positions} = this.props;
-    const current_position = positions[current_move_index] || {};
+    const {
+      state: {
+        currentMoveIndex
+      },
+      props: {
+        game
+      }
+    } = this;
+
+    const {positions} = game;
+    const currentPosition = positions[currentMoveIndex] || {};
+
+    const properties = JSON.parse(game.gameInfo);
+    
     const halfMoves = positions.length;
 
+    const moves = positions
+      .map(position => position.move)
+      .filter(el => el);
+
     return (
-      <div>
-        <p>Total half-moves : {halfMoves}</p>
-        <p>{current_position.moveIndex}. {current_position.move}</p>
-        <Chessground fen={current_position.fen} />
-        <button onClick={this.first} className="btn btn-light" disabled={current_move_index === 0} >First</button>
-        <button onClick={this.previous} className="btn btn-light" disabled={current_move_index === 0} >Previous</button>
-        <button onClick={this.next} className="btn btn-light" disabled={current_move_index === halfMoves - 1} >Next</button>
-        <button onClick={this.last} className="btn btn-light" disabled={current_move_index === halfMoves - 1} >Last</button>
+      <div className="flex">
+        <div>
+          <Chessground fen={currentPosition.fen} />
+          <button onClick={this.first} className="btn btn-light" disabled={currentMoveIndex === 0} >
+            <i className='fa fa-backward'></i>
+          </button>
+          <button onClick={this.previous} className="btn btn-light" disabled={currentMoveIndex === 0} >
+            <i className='fa fa-chevron-left'></i>
+          </button>
+          <button onClick={this.next} className="btn btn-light" disabled={currentMoveIndex === halfMoves - 1} >
+            <i className='fa fa-chevron-right'></i>
+          </button>
+          <button onClick={this.last} className="btn btn-light" disabled={currentMoveIndex === halfMoves - 1} >
+          <i className='fa fa-forward'></i>
+          </button>
+        </div>
+        <div style={{overflow: 'auto', maxWidth: '450px', marginLeft: '2rem'}}>
+          <Tabs labels={["Game Info", "Score Sheet"]}>
+            <Properties properties={properties} />
+            <div>
+              <ScoreSheet moves={moves} currentMoveIndex={currentMoveIndex} handleClick={this.setMoveIndex}/>
+            </div>
+          </Tabs>
+        </div>
       </div>
     );
   }
 
+  setMoveIndex = (index) => {
+    this.setState({currentMoveIndex: index});
+  }
+
   first = () => {
-    this.setState({current_move_index: 0})
+    this.setState({currentMoveIndex: 0});
   }
 
   previous = () => {
     this.setState({
-      current_move_index: Math.max(
+      currentMoveIndex: Math.max(
         0,
-        this.state.current_move_index - 1
+        this.state.currentMoveIndex - 1
       )
     });
   }
 
   next = () => {
+    const {
+      props: { game: { positions }},
+      state: { currentMoveIndex }
+    } = this;
+
     this.setState({
-      current_move_index: Math.min(
-        this.props.positions.length - 1,
-        this.state.current_move_index + 1
+      currentMoveIndex: Math.min(
+        positions.length - 1,
+        currentMoveIndex + 1
       )
     });
   }
 
   last = () => {
-    this.setState({current_move_index: this.props.positions.length - 1})
+    const {positions} = this.props.game;
+    this.setState({currentMoveIndex: positions.length - 1})
   }
 }
