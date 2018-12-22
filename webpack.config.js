@@ -140,5 +140,8 @@ module.exports = (env, options) => ({
     compress: true,
     open: true,
     hot: true,
+    // https://github.com/webpack/webpack-dev-server/issues/882
+    // To fix invalid host origin header
+    disableHostCheck: true,
   },
 });

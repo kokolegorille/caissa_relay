@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 
-const defaultState = {
-  description: '', code: '', zobristHash: '',
-};
+const defaultState = { description: '', code: '', zobristHash: '' };
 
 export default class SubCategoryFilter extends Component {
   constructor(props) {
@@ -10,9 +8,8 @@ export default class SubCategoryFilter extends Component {
     this.state = this.loadStateFromProps(this.props.initialState);
   }
 
-  loadStateFromProps = (obj) => {
+  loadStateFromProps = ({description, code, zobristHash}) => {
     let initialState = Object.assign({}, defaultState);
-    const {description, code, zobristHash, order} = obj;
     
     // Reload state from filter if needed
     initialState.description = description;
@@ -27,7 +24,6 @@ export default class SubCategoryFilter extends Component {
       description,
       code,
       zobristHash,
-      order,
     } = this.state;
 
     return (
@@ -45,7 +41,7 @@ export default class SubCategoryFilter extends Component {
 
         <div>
           <input type="submit" value="Submit" className="btn btn-light" />
-          <button onClick={this.handleClear} className="btn btn-light" >Clear Filter</button>
+          <button type="button" onClick={this.handleClear} className="btn btn-light" >Clear Filter</button>
         </div>
       </form>
     );

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 9d634debd89ab4767344f047bb007769
+ * @relayHash 02a1a12083ff598bf34203400b4b06d3
  */
 
 /* eslint-disable */
@@ -74,7 +74,7 @@ fragment gamesList_viewer_32tO6o on Viewer {
 fragment gameItem_game on Game {
   id
   internalId
-  gameInfo
+  pgn
   blackPlayer {
     lastName
     firstName
@@ -179,7 +179,7 @@ return {
   "operationKind": "query",
   "name": "gamesListPaginationQuery",
   "id": null,
-  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  whiteElo\n  blackElo\n  event\n  site\n  round\n  result\n  year\n  month\n  day\n}\n",
+  "text": "query gamesListPaginationQuery(\n  $count: Int!\n  $cursor: String\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_32tO6o\n  }\n}\n\nfragment gamesList_viewer_32tO6o on Viewer {\n  games(first: $count, after: $cursor, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  pgn\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  whiteElo\n  blackElo\n  event\n  site\n  round\n  result\n  year\n  month\n  day\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -283,7 +283,7 @@ return {
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "gameInfo",
+                        "name": "pgn",
                         "args": null,
                         "storageKey": null
                       },

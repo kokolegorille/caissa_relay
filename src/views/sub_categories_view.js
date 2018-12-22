@@ -5,18 +5,20 @@ import environment from "../environment";
 import SubCategoryFilter from "../components/eco/sub_category_filter";
 import SubCategoriesList from "../components/eco/sub_categories_list";
 
+const defaultState = {
+  description: '',
+  code: '',
+  zobristHash: '',
+};
+
 export default class SubCategoriesView extends Component {
-    state = {
-      description: '',
-      code: '',
-      zobristHash: '',
-    }
+    state = defaultState;
 
     render() {
       const {id} = this.props.params;
 
       // Set class for A and B components, it depends on presence of id in params
-      // (Is a game selected, or not)
+      // (If a game is selected, or not)
       let classA, classB;
       if(id) {
         classA = "col-sm-12 col-md-3"
@@ -69,17 +71,11 @@ export default class SubCategoriesView extends Component {
     handleFilterSubmit = (filterState) => {
       if (filterState === null) {
         // Reset state to default
-        this.setState({
-          description: '',
-          code: '',
-          zobristHash: '',
-        });
+        this.setState(defaultState);
         return;
       }
   
-      const allowed = [
-        'description', 'code', 'zobristHash'
-      ];
+      const allowed = [ 'description', 'code', 'zobristHash' ];
   
       // It is important to clean up attributes before submitting to graphql!
       let filtered = Object.keys(filterState)

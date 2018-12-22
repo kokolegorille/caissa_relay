@@ -55,6 +55,7 @@ export default createRefetchContainer(
             lastName
             firstName
           }
+          pgn
           event
           site
           round

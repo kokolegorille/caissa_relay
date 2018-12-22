@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash dde82d7271274e919c829cacc37c5144
+ * @relayHash 82b010b6b47d5428f48f040aeb46e9e7
  */
 
 /* eslint-disable */
@@ -70,7 +70,7 @@ fragment gamesList_viewer_3Rf5Y0 on Viewer {
 fragment gameItem_game on Game {
   id
   internalId
-  gameInfo
+  pgn
   blackPlayer {
     lastName
     firstName
@@ -157,7 +157,7 @@ return {
   "operationKind": "query",
   "name": "gamesView_Query",
   "id": null,
-  "text": "query gamesView_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 30, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  gameInfo\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  whiteElo\n  blackElo\n  event\n  site\n  round\n  result\n  year\n  month\n  day\n}\n",
+  "text": "query gamesView_Query(\n  $filter: GameFilter!\n  $order: SortOrder!\n) {\n  viewer {\n    ...gamesList_viewer_3Rf5Y0\n  }\n}\n\nfragment gamesList_viewer_3Rf5Y0 on Viewer {\n  games(first: 30, filter: $filter, order: $order) {\n    edges {\n      node {\n        id\n        ...gameItem_game\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasPreviousPage\n      hasNextPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment gameItem_game on Game {\n  id\n  internalId\n  pgn\n  blackPlayer {\n    lastName\n    firstName\n    id\n  }\n  whitePlayer {\n    lastName\n    firstName\n    id\n  }\n  whiteElo\n  blackElo\n  event\n  site\n  round\n  result\n  year\n  month\n  day\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -249,7 +249,7 @@ return {
                       {
                         "kind": "ScalarField",
                         "alias": null,
-                        "name": "gameInfo",
+                        "name": "pgn",
                         "args": null,
                         "storageKey": null
                       },

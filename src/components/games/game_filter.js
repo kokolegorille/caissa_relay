@@ -103,7 +103,7 @@ export default class GameFilter extends Component {
 
         <div>
           <input type="submit" value="Submit" className="btn btn-light" />
-          <button onClick={this.handleClear} className="btn btn-light" >Clear Filter</button>
+          <button type="button" onClick={this.handleClear} className="btn btn-light" >Clear Filter</button>
         </div>
       </form>
     );

@@ -5,14 +5,17 @@ import { withRouter } from 'found';
 class GameItem extends Component {
   render() {
     const {game, currentGameId} = this.props;
-    const cssClass = (game.internalId === currentGameId) ? "active" : null;
-
+    let cssClass = "gameItem";
+    if (game.internalId === currentGameId) { cssClass += " active" };
     return (
-      <tr className={cssClass} onClick={this.handleClick}>
-        <td>{game.whitePlayer.lastName}, {game.whitePlayer.firstName}</td>
+      <tr 
+        title={game.pgn}
+        className={cssClass} 
+        onClick={this.handleClick} >
         <td>{game.whiteElo}</td>
-        <td>{game.blackPlayer.lastName}, {game.blackPlayer.firstName}</td>
+        <td>{this.renderPlayer(game.whitePlayer)}</td>
         <td>{game.blackElo}</td>
+        <td>{this.renderPlayer(game.blackPlayer)}</td>
         <td>{game.event}</td>
         <td>{game.site}</td>
         <td>{game.round}</td>
@@ -31,6 +34,12 @@ class GameItem extends Component {
   sanitizeDate = game => `${game.year}.${this.sanitize(game.month)}.${this.sanitize(game.day)}`;
 
   sanitize = value => value ? ("00" + value).slice(-2) : "??";
+
+  renderPlayer = player => {
+    let result = player.lastName.toUpperCase();
+    if(player.firstName) { result += ` ${player.firstName}`}
+    return result;
+  }
 }
 
 export default createFragmentContainer(withRouter(GameItem), {
@@ -38,7 +47,7 @@ export default createFragmentContainer(withRouter(GameItem), {
     fragment gameItem_game on Game {
       id
       internalId
-      gameInfo
+      pgn
       blackPlayer {
         lastName
         firstName

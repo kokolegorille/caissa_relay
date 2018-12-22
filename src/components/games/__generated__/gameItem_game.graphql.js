@@ -13,7 +13,7 @@ declare export opaque type gameItem_game$ref: FragmentReference;
 export type gameItem_game = {|
   +id: string,
   +internalId: ?number,
-  +gameInfo: ?any,
+  +pgn: ?string,
   +blackPlayer: ?{|
     +lastName: ?string,
     +firstName: ?string,
@@ -77,7 +77,7 @@ return {
     {
       "kind": "ScalarField",
       "alias": null,
-      "name": "gameInfo",
+      "name": "pgn",
       "args": null,
       "storageKey": null
     },
@@ -168,5 +168,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '297eb279b37848231564bf8f7272cfec';
+(node/*: any*/).hash = '408bab75597a645ee9141ec0c096b163';
 module.exports = node;

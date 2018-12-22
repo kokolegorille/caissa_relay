@@ -16,10 +16,10 @@ class GamesList extends Component {
           <table className="table table-sm table-hover">
             <thead>
               <tr>
+              <th>Elo</th>
                 <th>White</th>
-                <th>WhiteElo</th>
+                <th>Elo</th>
                 <th>Black</th>
-                <th>BlackElo</th>
                 <th>Event</th>
                 <th>Site</th>
                 <th>Round</th>

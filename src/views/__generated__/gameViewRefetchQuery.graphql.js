@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash feb008ec59ad78db81768370984bf089
+ * @relayHash 93a0cf08fe03882caba49532bbaa6db0
  */
 
 /* eslint-disable */
@@ -49,6 +49,7 @@ fragment gameView_viewer_1Bmzm5 on Viewer {
       firstName
       id
     }
+    pgn
     event
     site
     round
@@ -103,7 +104,7 @@ return {
   "operationKind": "query",
   "name": "gameViewRefetchQuery",
   "id": null,
-  "text": "query gameViewRefetchQuery(\n  $id: Int!\n) {\n  viewer {\n    ...gameView_viewer_1Bmzm5\n  }\n}\n\nfragment gameView_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n",
+  "text": "query gameViewRefetchQuery(\n  $id: Int!\n) {\n  viewer {\n    ...gameView_viewer_1Bmzm5\n  }\n}\n\nfragment gameView_viewer_1Bmzm5 on Viewer {\n  game(id: $id) {\n    id\n    internalId\n    gameInfo\n    blackPlayer {\n      lastName\n      firstName\n      id\n    }\n    whitePlayer {\n      lastName\n      firstName\n      id\n    }\n    pgn\n    event\n    site\n    round\n    result\n    year\n    positions {\n      move\n      moveIndex\n      fen\n      zobristHash\n      id\n    }\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -201,6 +202,13 @@ return {
                 "concreteType": "Player",
                 "plural": false,
                 "selections": v2
+              },
+              {
+                "kind": "ScalarField",
+                "alias": null,
+                "name": "pgn",
+                "args": null,
+                "storageKey": null
               },
               {
                 "kind": "ScalarField",

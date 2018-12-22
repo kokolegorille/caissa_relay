@@ -17,15 +17,19 @@ export default class GameViewer extends Component {
 
   render() {
     const {
-      state: {
-        currentMoveIndex
-      },
-      props: {
-        game
-      }
+      first, previous, next, last, setMoveIndex,
+      isFirst, isLast,
+      renderPlayer,
+      state: { currentMoveIndex },
+      props: { game }
     } = this;
 
-    const {positions} = game;
+    const {
+      whitePlayer,
+      blackPlayer,
+      result,
+      positions
+    } = game;
     const currentPosition = positions[currentMoveIndex] || {};
 
     const properties = JSON.parse(game.gameInfo);
@@ -37,41 +41,58 @@ export default class GameViewer extends Component {
       .filter(el => el);
 
     return (
-      <div className="flex">
-        <div>
-          <Chessground fen={currentPosition.fen} />
-          <button onClick={this.first} className="btn btn-light" disabled={currentMoveIndex === 0} >
-            <i className='fa fa-backward'></i>
-          </button>
-          <button onClick={this.previous} className="btn btn-light" disabled={currentMoveIndex === 0} >
-            <i className='fa fa-chevron-left'></i>
-          </button>
-          <button onClick={this.next} className="btn btn-light" disabled={currentMoveIndex === halfMoves - 1} >
-            <i className='fa fa-chevron-right'></i>
-          </button>
-          <button onClick={this.last} className="btn btn-light" disabled={currentMoveIndex === halfMoves - 1} >
-          <i className='fa fa-forward'></i>
-          </button>
-        </div>
-        <div style={{overflow: 'auto', maxWidth: '450px', marginLeft: '2rem'}}>
-          <Tabs labels={["Game Info", "Score Sheet"]}>
-            <Properties properties={properties} />
-            <div>
-              <ScoreSheet moves={moves} currentMoveIndex={currentMoveIndex} handleClick={this.setMoveIndex}/>
-            </div>
-          </Tabs>
+      <div>
+        <h3>
+          {renderPlayer(whitePlayer)} - {renderPlayer(blackPlayer)} : {result}
+        </h3>
+        <div className="flex">
+          <div>
+            <Chessground fen={currentPosition.fen} />
+            <button onClick={first} className="btn btn-light" disabled={isFirst()} >
+              <i className='fa fa-backward'></i>
+            </button>
+            <button onClick={previous} className="btn btn-light" disabled={isFirst()} >
+              <i className='fa fa-chevron-left'></i>
+            </button>
+            <button onClick={next} className="btn btn-light" disabled={isLast(halfMoves)} >
+              <i className='fa fa-chevron-right'></i>
+            </button>
+            <button onClick={last} className="btn btn-light" disabled={isLast(halfMoves)} >
+            <i className='fa fa-forward'></i>
+            </button>
+          </div>
+          <div style={{overflow: 'auto', maxWidth: '450px', marginLeft: '2rem'}}>
+            <Tabs labels={["Game Info", "Score Sheet", "PGN"]}>
+              <Properties properties={properties} />
+              <div>
+                <ScoreSheet moves={moves} currentMoveIndex={currentMoveIndex} handleClick={setMoveIndex}/>
+              </div>
+              <div>
+                {
+                  game.pgn
+                    .split("\n")
+                    .map(el => [el, <br/>])
+                }
+              </div>
+            </Tabs>
+          </div>
         </div>
       </div>
     );
   }
 
-  setMoveIndex = (index) => {
-    this.setState({currentMoveIndex: index});
+  renderPlayer = player => {
+    let result = player.lastName.toUpperCase();
+    if(player.firstName) { result += ` ${player.firstName}`}
+    return result;
   }
 
-  first = () => {
-    this.setState({currentMoveIndex: 0});
-  }
+  isFirst = () => this.state.currentMoveIndex === 0;
+  isLast = halfMove => this.state.currentMoveIndex === halfMove - 1;
+
+  setMoveIndex = index => this.setState({currentMoveIndex: index});
+
+  first = () => this.setState({currentMoveIndex: 0});
 
   previous = () => {
     this.setState({
