@@ -71,12 +71,13 @@ export default class GameViewer extends Component {
                 {
                   game.pgn
                     .split("\n")
-                    .map(el => [el, <br/>])
+                    .map((el, index) => <div key={index}>{el}</div>)
                 }
               </div>
             </Tabs>
           </div>
         </div>
+        <p>{currentPosition.fen}</p>
       </div>
     );
   }

@@ -36,7 +36,7 @@ class GameItem extends Component {
   sanitize = value => value ? ("00" + value).slice(-2) : "??";
 
   renderPlayer = player => {
-    let result = player.lastName.toUpperCase();
+    let result = player.lastName;
     if(player.firstName) { result += ` ${player.firstName}`}
     return result;
   }
